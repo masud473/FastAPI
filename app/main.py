@@ -54,3 +54,11 @@ def delete_post(id:int):
         my_posts.remove(post)
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Post not found")
+
+@app.put('/posts/{id}')
+def update_post(id:int,post:Post):
+    for i,p in enumerate(my_posts):
+        if p['id']==id:
+            my_posts[i]=post
+            return {"data":post}
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Post not found")
